@@ -50,7 +50,7 @@ class Oscillator extends AudioWorkletProcessor {
             {
                 name: "frequency",
                 description: "Number of waveform cycles per second [Hz]",
-                defaultValue: 400,
+                defaultValue: 440,
                 minValue: 0,
                 maxValue: 0.5 * sampleRate,
             },
@@ -78,7 +78,7 @@ class Oscillator extends AudioWorkletProcessor {
             {
                 name: "sync",
                 description: "Frequency to hard sync to in Hz",
-                defaultValue: 40,
+                defaultValue: 0,
                 minValue: 0,
             },
             {

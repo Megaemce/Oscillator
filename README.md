@@ -52,7 +52,7 @@ Build as an extension of [OscillatorNode](https://developer.mozilla.org/en-US/do
 },
 
 ````
-Hence this Oscillator expands the processor by adding a static [parameterDescriptors](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor/parameterDescriptors) getter all listed parameters can be accessed by the [parameters](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode/parameters) property of AudioWorkletNode like so: 
+Hence this Oscillator expands the processor by adding a static [parameterDescriptors getter](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor/parameterDescriptors) all listed parameters can be accessed via [parameters](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode/parameters) property of AudioWorkletNode like so: 
 ````javascript
 const oscillator = new AudioWorkletNode(audioContext, "oscillator");
 const type = oscillator.parameters.get("signalType");

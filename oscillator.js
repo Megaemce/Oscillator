@@ -16,7 +16,7 @@
     normalizing frequencies:
     https://www.physik.uzh.ch/local/teaching/SPI301/LV-2015-Help/lvanlsconcepts.chm/Normalized_Frequency.html
 
-    inside processs() you can't use forEach as it doesn't wait for promises which process() seems to be using, 
+    inside processs() one can't use forEach as it doesn't wait for promises which process() seems to be using, 
     see note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
 
     sawtooth signal chart with hard sync and its leader cycle, follower cycler, 

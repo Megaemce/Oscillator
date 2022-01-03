@@ -5,7 +5,14 @@ Build as an extension of [OscillatorNode](https://developer.mozilla.org/en-US/do
 ````javascript
 {
     name: "signalType",
-    description: "Types of waveform. 0: triangle, 1: pulse, 2: sawtooth, 3: sine, 4: white noise, 5: pink noise, 6: brown noise",
+    description: "Types of waveform. 
+        0: triangle, 
+        1: pulse, 
+        2: sawtooth, 
+        3: sine, 
+        4: white noise, 
+        5: pink noise, 
+        6: brown noise",
     defaultValue: 1,
     minValue: 0,
     maxValue: 6,

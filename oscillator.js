@@ -37,15 +37,27 @@ class Oscillator extends AudioWorkletProcessor {
         // used by hard sync. Read: https://www.cs.cmu.edu/~eli/papers/icmc01-hardsync.pdf
         this.leaderPhase = 0; // leader's cycle phase [0-1]
         this.followerPhase = 0; // follower's cycle phase [0-1]
+
+        // used by pink noise. See: https://noisehack.com/generate-noise-web-audio-api/
+        this.b0 = 0;
+        this.b1 = 0;
+        this.b2 = 0;
+        this.b3 = 0;
+        this.b4 = 0;
+        this.b5 = 0;
+        this.b6 = 0;
+        
+        // used by brown noise
+        this.lastOut = 0.0;
     }
     static get parameterDescriptors() {
         return [
             {
                 name: "signalType",
-                description: "Types of waveform. 0: triangle, 1: pulse, 2: sawtooth, 3: sine, 4: random noise",
+                description: "Types of waveform. 0: triangle, 1: pulse, 2: sawtooth, 3: sine, 4: white noise, 5: pink noise, 6: brown noise",
                 defaultValue: 1,
                 minValue: 0,
-                maxValue: 4,
+                maxValue: 6,
             },
             {
                 name: "frequency",
@@ -144,8 +156,26 @@ class Oscillator extends AudioWorkletProcessor {
                 this.followerPhase %= 1;
 
                 let sampleValue = 0; // keep current sample's value. Range: [-1,1]
-
-                // random noise
+                
+                // brown noise
+                if (wave === 6) {
+                    const white = Math.random() * 2 - 1;
+                    sampleValue = (this.lastOut + 0.02 * white) / 1.02;
+                    this.lastOut = sampleValue;
+                    sampleValue *= 3.5; // (roughly) compensate for gain
+                } // pink noise
+                if (wave === 5) {
+                    const white = Math.random() * 2 - 1;
+                    this.b0 = 0.99886 * this.b0 + white * 0.0555179;
+                    this.b1 = 0.99332 * this.b1 + white * 0.0750759;
+                    this.b2 = 0.969 * this.b2 + white * 0.153852;
+                    this.b3 = 0.8665 * this.b3 + white * 0.3104856;
+                    this.b4 = 0.55 * this.b4 + white * 0.5329522;
+                    this.b5 = -0.7616 * this.b5 - white * 0.016898;
+                    sampleValue = this.b0 + this.b1 + this.b2 + this.b3 + this.b4 + this.b5 + this.b6 + white * 0.5362;
+                    sampleValue *= 0.11; // (roughly) compensate for gain
+                    this.b6 = white * 0.115926;
+                } // white noise
                 if (wave === 4) {
                     sampleValue = Math.random() * 2 - 1;
                 } // sine wave

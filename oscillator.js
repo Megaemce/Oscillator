@@ -111,7 +111,7 @@ class Oscillator extends AudioWorkletProcessor {
         if (parameter.length > 1) return parameter[index]; // a-rate
         if (parameter.length === 1) return parameter[0]; // k-rate
     }
-    /* if signal value if over range [-1,1] hard clip it */
+    /* if signal value is over range [-1,1] hard clip it */
     clipValue(value) {
         if (value > 1) return 1;
         if (value < -1) return -1;

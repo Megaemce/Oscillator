@@ -1,0 +1,55 @@
+<html>
+    <head><title>Demo</title></head>
+    <body>
+        <button id="start-button" style="position:absolute; left: 50%; top: 50%; font-size: x-large; text-decoration-line: underline;">🏎️💨</button>
+        <script>
+            let playButton = document.getElementById("start-button");
+            
+            playButton.onclick = () => {
+                try {
+                    audioContext = new AudioContext();
+                } catch (e) {
+                    alert("The Web Audio API is not supported in this browser.");
+                }
+
+                audioContext.audioWorklet.addModule("./oscillator.js").then(() => {
+                    const oscillator = new AudioWorkletNode(audioContext, "oscillator");
+                    oscillator.connect(audioContext.destination);
+
+                    const type = oscillator.parameters.get("signalType");
+                    const sync = oscillator.parameters.get("sync");
+                    const duty = oscillator.parameters.get("duty");
+                    const vibrato = oscillator.parameters.get("vibrato");
+                    const amplitude = oscillator.parameters.get("amplitude");
+                    const phaseOffset = oscillator.parameters.get("phaseOffset");
+
+                    const time = audioContext.currentTime;
+
+                    // changing type from default (pulse), to sawtooth and then to triangle
+                    type.setValueAtTime(2, time + 0.5);
+                    type.setValueAtTime(0, time + 3);
+
+                    sync.linearRampToValueAtTime(440, time + 1);
+                    sync.linearRampToValueAtTime(0, time + 4);
+
+                    duty.linearRampToValueAtTime(1, time + 2);
+                    duty.linearRampToValueAtTime(0.2, time + 4);
+
+                    vibrato.exponentialRampToValueAtTime(0.8, time + 2);
+                    vibrato.linearRampToValueAtTime(0, time + 3);
+
+                    amplitude.setValueAtTime(0, time);
+                    amplitude.linearRampToValueAtTime(0.8, time + 2);
+                    amplitude.setValueAtTime(0.4, time + 2.5);
+                    amplitude.linearRampToValueAtTime(0.2, time + 4);
+
+                    phaseOffset.linearRampToValueAtTime(0.01, time + 1);
+                    phaseOffset.linearRampToValueAtTime(0, time + 1.5);
+
+                    setTimeout(() => audioContext.close(), 4000);
+                });
+            }
+        </script>
+    </body>
+</html>
+

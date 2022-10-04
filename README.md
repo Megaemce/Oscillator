@@ -76,7 +76,8 @@ const type = oscillator.parameters.get("signalType");
 
 ## Example
 Let's create sound similar to acceleration and gear shifting in classical Amiga game like Crazy Cars 3.
-Try it online! [🏎️💨](https://megaemce.github.io/Oscillator/demo.html)
+
+[Try it online! 🏎️💨](https://megaemce.github.io/Oscillator/demo.html)
 ```javascript
 try {
     audioContext = new AudioContext();

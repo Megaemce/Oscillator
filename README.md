@@ -75,7 +75,8 @@ const type = oscillator.parameters.get("signalType");
 ````
 
 ## Example
-Let's create sound similar to acceleration and gear shifting in classical Amiga game like Crazy Cars 3 🏎️
+Let's create sound similar to acceleration and gear shifting in classical Amiga game like Crazy Cars 3.
+Try it online! [🏎️💨](https://megaemce.github.io/Oscillator/demo.html)
 ```javascript
 try {
     audioContext = new AudioContext();
@@ -122,6 +123,6 @@ audioContext.audioWorklet.addModule("./oscillator.js").then(() => {
 ````
 
 ## Technology & limitation
-Currently AudioWorkletProcessor works fine in [all major browsers except Safari](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor#browser_compatibility).
+Currently AudioWorkletProcessor works fine in [all major browers](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor#browser_compatibility).
 
 Thanks to [Flarp](https://github.com/Flarp) for creating [inital idea](https://github.com/Flarp/better-oscillator). 
